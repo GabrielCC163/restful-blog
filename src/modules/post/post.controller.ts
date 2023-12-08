@@ -1,10 +1,32 @@
-import { Controller, Get, Post, Body, Param, Delete, ParseUUIDPipe, Query, HttpCode, Put, Request } from '@nestjs/common';
+/* eslint-disable sonarjs/no-duplicate-string */
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  ParseUUIDPipe,
+  Query,
+  HttpCode,
+  Put,
+  Request,
+} from '@nestjs/common';
 import { PostService } from './post.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { Pagination } from 'nestjs-typeorm-paginate';
 import { PaginationDTO } from '@common/dto/pagination.dto';
 import { PostEntity } from './entities/post.entity';
-import { ApiBadRequestResponse, ApiCreatedResponse, ApiInternalServerErrorResponse, ApiNoContentResponse, ApiNotFoundResponse, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBadRequestResponse,
+  ApiCreatedResponse,
+  ApiInternalServerErrorResponse,
+  ApiNoContentResponse,
+  ApiNotFoundResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiTags,
+} from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
 import { AppConfig } from '@config/app.config';
 import { PostPaginatedResponseDto, PostResponseDto } from './dto/post-response.dto';
@@ -28,9 +50,7 @@ export class PostController {
   @ApiCreatedResponse({ type: PostResponseDto, description: 'Post created' })
   @ApiBadRequestResponse({ description: 'Bad request' })
   @ApiInternalServerErrorResponse({ description: 'Internal server error' })
-  create(
-    @Request() req,
-    @Body() createPostDto: CreatePostDto): Promise<PostEntity> {
+  create(@Request() req, @Body() createPostDto: CreatePostDto): Promise<PostEntity> {
     return this.postService.create(req.user.userId, createPostDto);
   }
 
@@ -42,7 +62,8 @@ export class PostController {
   createComment(
     @Request() req,
     @Param('id', new ParseUUIDPipe()) postId: string,
-    @Body() createCommentDto: CreateCommentDto): Promise<CommentEntity> {
+    @Body() createCommentDto: CreateCommentDto,
+  ): Promise<CommentEntity> {
     return this.postService.createComment(req.user.userId, postId, createCommentDto);
   }
 
@@ -54,7 +75,8 @@ export class PostController {
   update(
     @Request() req,
     @Param('id', new ParseUUIDPipe()) id: string,
-    @Body() updatePostDto: UpdatePostDto): Promise<PostEntity> {
+    @Body() updatePostDto: UpdatePostDto,
+  ): Promise<PostEntity> {
     return this.postService.update(req.user.userId, id, updatePostDto);
   }
 
@@ -87,7 +109,8 @@ export class PostController {
   @ApiInternalServerErrorResponse({ description: 'Internal server error' })
   findAllPostComments(
     @Param('id', new ParseUUIDPipe()) postId: string,
-    @Query() pagination: PaginationDTO): Promise<Pagination<CommentEntity>> {
+    @Query() pagination: PaginationDTO,
+  ): Promise<Pagination<CommentEntity>> {
     pagination.route = `${this.baseUrl}/posts/${postId}/comments`;
     return this.postService.findAllPostComments(postId, pagination);
   }
@@ -97,9 +120,7 @@ export class PostController {
   @ApiNoContentResponse({ description: 'Post removed' })
   @ApiNotFoundResponse({ description: 'Post not found' })
   @ApiInternalServerErrorResponse({ description: 'Internal server error' })
-  async remove(
-    @Request() req,
-    @Param('id', new ParseUUIDPipe()) id: string): Promise<void> {
+  async remove(@Request() req, @Param('id', new ParseUUIDPipe()) id: string): Promise<void> {
     await this.postService.remove(req.user.userId, id);
   }
 }

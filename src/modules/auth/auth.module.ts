@@ -9,13 +9,13 @@ import { JwtStrategy } from './strategy/jwt.strategy';
 import { UserModule } from '@modules/user/user.module';
 
 @Module({
-    imports: [
-        ConfigModule.forRoot(),
-        PassportModule,
-        UserModule,
-        JwtModule.register({ secret: process.env.AUTH_SECRET }),
-    ],
-    controllers: [AuthController],
-    providers: [AuthService, JwtStrategy]
+  imports: [
+    ConfigModule.forRoot(),
+    PassportModule,
+    UserModule,
+    JwtModule.register({ secret: process.env.AUTH_SECRET }),
+  ],
+  controllers: [AuthController],
+  providers: [AuthService, JwtStrategy],
 })
-export class AuthModule { }
+export class AuthModule {}

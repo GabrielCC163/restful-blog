@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-duplicate-string */
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreatePostDto } from './dto/create-post.dto';
 import { IPaginationOptions, paginate, Pagination } from 'nestjs-typeorm-paginate';
@@ -16,17 +17,16 @@ export class PostService {
     private postRepository: Repository<PostEntity>,
     @InjectRepository(CommentEntity)
     private commentRepository: Repository<CommentEntity>,
-  ) { }
+  ) {}
 
   async create(userId: string, createPostDto: CreatePostDto): Promise<PostEntity> {
     const post = await this.postRepository.findOne({ where: { title: createPostDto.title } });
     if (post) throw new BadRequestException(`Post already exists with the same title`);
 
-    const newPost = await this.postRepository.save({
+    return await this.postRepository.save({
       ...createPostDto,
-      createdBy: userId
+      createdBy: userId,
     });
-    return newPost;
   }
 
   createComment(userId: string, postId: string, createCommentDto: CreateCommentDto): Promise<CommentEntity> {
@@ -34,7 +34,7 @@ export class PostService {
       ...createCommentDto,
       createdBy: userId,
       postId,
-    })
+    });
   }
 
   async update(userId: string, id: string, updatePostDto: UpdatePostDto): Promise<PostEntity> {
@@ -54,20 +54,20 @@ export class PostService {
         alias: 'post',
         innerJoinAndSelect: {
           user: 'post.user',
-        }
-      }
+        },
+      },
     } as any;
 
     if (search?.trim()) searchOptions.where['title'] = ILike(`%${search.trim()}%`);
     if (userId) searchOptions.where['createdBy'] = userId;
 
     const result = await paginate<PostEntity>(this.postRepository, options, searchOptions);
-    if (!result?.items?.length) throw new NotFoundException('No posts to list')
+    if (!result?.items?.length) throw new NotFoundException('No posts to list');
     return result;
   }
 
   async findOne(id: string): Promise<PostEntity> {
-    const post = await this.postRepository.findOne({ where: { id }, relations: { user: true } },);
+    const post = await this.postRepository.findOne({ where: { id }, relations: { user: true } });
     if (!post) throw new NotFoundException('Post not found');
     return post;
   }
@@ -81,9 +81,9 @@ export class PostService {
       join: {
         alias: 'comment',
         innerJoinAndSelect: {
-          user: 'comment.user'
-        }
-      }
+          user: 'comment.user',
+        },
+      },
     } as any;
 
     searchOptions.where['postId'] = postId;
@@ -91,7 +91,7 @@ export class PostService {
     if (userId) searchOptions.where['createdBy'] = userId;
 
     const result = await paginate<CommentEntity>(this.commentRepository, options, searchOptions);
-    if (!result?.items?.length) throw new NotFoundException('No comments to list')
+    if (!result?.items?.length) throw new NotFoundException('No comments to list');
     return result;
   }
 

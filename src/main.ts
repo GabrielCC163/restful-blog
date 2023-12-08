@@ -19,7 +19,7 @@ async function bootstrap() {
   setupSwagger(applicationName, app);
   await app.listen(process.env.PORT || 3001).then(() => {
     console.log('HTTP server running!');
-  });;
+  });
 }
 
 bootstrap().catch((err) => {

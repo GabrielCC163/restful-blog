@@ -8,7 +8,7 @@ export class UserService {
   constructor(
     @InjectRepository(UserEntity)
     private userRepository: Repository<UserEntity>,
-  ) { }
+  ) {}
 
   findUserByEmail(email: string): Promise<UserEntity> {
     return this.userRepository
