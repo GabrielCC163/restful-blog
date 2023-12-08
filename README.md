@@ -13,10 +13,21 @@ The command below will start all services and run the migrations and seeds:
 ```
 cd restful-blog
 
-docker-compose up
+docker-compose up -d
+
+npm i
+
+npm start
 ```
 
+<b>Tip: when running `npm start`, the project will also insert two default users in the database:</b>
+- email: reeves@gmail.com / password: 123123
+- email: jackman@gmail.com / password: 123123
+
+
+
 <hr>
+
 
 ### API Documentation
 * Access: http://localhost:3000/docs
@@ -30,11 +41,10 @@ docker-compose up
 <hr>
 
 ### Tests
-Make sure you have run the "docker-compose up" command before, then:
 ```
 cd restful-blog
 
-npm run test-docker
+npm run test
 ```
 
 <hr>
