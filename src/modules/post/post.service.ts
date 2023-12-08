@@ -9,6 +9,8 @@ import { ILike, Repository } from 'typeorm';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { CommentEntity } from './entities/comment.entity';
+import { LogService } from '@modules/log/log.service';
+import { logActionEnum } from '@modules/log/dto/create-log.dto';
 
 @Injectable()
 export class PostService {
@@ -17,30 +19,52 @@ export class PostService {
     private postRepository: Repository<PostEntity>,
     @InjectRepository(CommentEntity)
     private commentRepository: Repository<CommentEntity>,
+    private readonly logService: LogService,
   ) {}
 
   async create(userId: string, createPostDto: CreatePostDto): Promise<PostEntity> {
     const post = await this.postRepository.findOne({ where: { title: createPostDto.title } });
     if (post) throw new BadRequestException(`Post already exists with the same title`);
 
-    return await this.postRepository.save({
+    const newPost = await this.postRepository.save({
       ...createPostDto,
       createdBy: userId,
     });
+    await this.logService.createLog({
+      action: logActionEnum.INSERT,
+      entity: 'Post',
+      entityId: newPost.id,
+      createdBy: userId,
+    });
+    return newPost;
   }
 
-  createComment(userId: string, postId: string, createCommentDto: CreateCommentDto): Promise<CommentEntity> {
-    return this.commentRepository.save({
+  async createComment(userId: string, postId: string, createCommentDto: CreateCommentDto): Promise<CommentEntity> {
+    const comment = await this.commentRepository.save({
       ...createCommentDto,
       createdBy: userId,
       postId,
     });
+
+    await this.logService.createLog({
+      action: logActionEnum.INSERT,
+      entity: 'Comment',
+      entityId: comment.id,
+      createdBy: userId,
+    });
+    return comment;
   }
 
   async update(userId: string, id: string, updatePostDto: UpdatePostDto): Promise<PostEntity> {
     const post = await this.postRepository.findOneBy({ id, createdBy: userId });
     if (!post) throw new NotFoundException('Post not found');
     await this.postRepository.update({ id }, updatePostDto);
+    await this.logService.createLog({
+      action: logActionEnum.UPDATE,
+      entity: 'Post',
+      entityId: post.id,
+      createdBy: userId,
+    });
     return this.postRepository.findOneBy({ id });
   }
 
@@ -99,5 +123,12 @@ export class PostService {
     const post = await this.postRepository.findOneBy({ id, createdBy: userId });
     if (!post) throw new NotFoundException('Post not found');
     await this.postRepository.delete(id);
+    await this.logService.createLog({
+      action: logActionEnum.DELETE,
+      entity: 'Post',
+      entityId: id,
+      createdBy: userId,
+      snapshot: post as any,
+    });
   }
 }

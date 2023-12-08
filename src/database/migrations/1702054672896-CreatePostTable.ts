@@ -1,6 +1,6 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class CreatePostEntity1702054672896 implements MigrationInterface {
+export class CreatePostTable1702054672896 implements MigrationInterface {
   name = 'CreatePostEntity1702054672896';
 
   public async up(queryRunner: QueryRunner): Promise<void> {
