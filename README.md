@@ -9,7 +9,6 @@
 <hr>
 
 ### Start the API
-The command below will start all services and run the migrations and seeds:
 ```
 cd restful-blog
 
@@ -24,18 +23,15 @@ npm start
 - email: reeves@gmail.com / password: 123123
 - email: jackman@gmail.com / password: 123123
 
-
-
 <hr>
-
 
 ### API Documentation
 * Access: http://localhost:3000/docs
 
-
 <hr>
 
 ### Run requests in Insomnia
+[![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=RESTful%20Blog&uri=https%3A%2F%2Fgist.githubusercontent.com%2FGabrielCC163%2F98c9ccf6816b0c01d3f5f8c29405279c%2Fraw%2F721b33a028bd7ade189862e5bfc5d376a413242f%2Fgistfile1.txt)
 
 
 <hr>

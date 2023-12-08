@@ -1,0 +1,393 @@
+{
+    "_type": "export",
+    "__export_format": 4,
+    "__export_date": "2023-12-08T22:18:32.798Z",
+    "__export_source": "insomnia.desktop.app:v2023.4.0",
+    "resources": [
+        {
+            "_id": "req_c0418231b72244cab811524954681ecb",
+            "parentId": "wrk_2713756d5aa7422091a2f707460089eb",
+            "modified": 1702065474764,
+            "created": 1702062795265,
+            "url": "{{ _.baseurl }}/docs",
+            "name": "API Doc",
+            "description": "",
+            "method": "GET",
+            "body": {},
+            "parameters": [],
+            "headers": [],
+            "authentication": {},
+            "metaSortKey": -1702062795265,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "wrk_2713756d5aa7422091a2f707460089eb",
+            "parentId": null,
+            "modified": 1702062615702,
+            "created": 1702062615702,
+            "name": "Restful Blog",
+            "description": "",
+            "scope": "collection",
+            "_type": "workspace"
+        },
+        {
+            "_id": "req_403dbc370a4843e9957e89288ea94359",
+            "parentId": "fld_7c6876a9a5ba4952be6737ca6ee1ec25",
+            "modified": 1702066809632,
+            "created": 1702062645964,
+            "url": "{{ _.baseurl }}/auth/signin",
+            "name": "Signin",
+            "description": "",
+            "method": "POST",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{\n\t\"email\": \"reeves@gmail.com\",\n\t\"password\": \"123123\"\n}"
+            },
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1702062645964,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "fld_7c6876a9a5ba4952be6737ca6ee1ec25",
+            "parentId": "wrk_2713756d5aa7422091a2f707460089eb",
+            "modified": 1702064172473,
+            "created": 1702062629420,
+            "name": "Auth",
+            "description": "",
+            "environment": {},
+            "environmentPropertyOrder": null,
+            "metaSortKey": -1702062712343,
+            "_type": "request_group"
+        },
+        {
+            "_id": "req_661714ff3acb4c85883f7ab99b1da8f0",
+            "parentId": "fld_b14a4772247e4c19810871fc67040662",
+            "modified": 1702071807981,
+            "created": 1702064198185,
+            "url": "{{ _.baseurl }}/posts",
+            "name": "Create Post",
+            "description": "",
+            "method": "POST",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{\n  \"title\": \"How To Create a CRUD App\",\n  \"imageUrl\": \"https://media.istockphoto.com/id/abc\"\n\n}"
+            },
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "authentication": {
+                "type": "bearer",
+                "token": "{% response 'body', 'req_403dbc370a4843e9957e89288ea94359', 'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+            },
+            "metaSortKey": -1702064251380.875,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "fld_b14a4772247e4c19810871fc67040662",
+            "parentId": "wrk_2713756d5aa7422091a2f707460089eb",
+            "modified": 1702064196253,
+            "created": 1702064190485,
+            "name": "Posts",
+            "description": "",
+            "environment": {},
+            "environmentPropertyOrder": null,
+            "metaSortKey": -1702062712293,
+            "_type": "request_group"
+        },
+        {
+            "_id": "req_38df263b44694409934544b0cd4812d4",
+            "parentId": "fld_b14a4772247e4c19810871fc67040662",
+            "modified": 1702065444449,
+            "created": 1702065018652,
+            "url": "{{ _.baseurl }}/posts/ade2308b-95ed-4d46-906c-dc54f75ae096",
+            "name": "Update Post",
+            "description": "",
+            "method": "PUT",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{\n  \"title\": \"How To Create a CRUD App with NodeJS\"\n}"
+            },
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "authentication": {
+                "type": "bearer",
+                "token": "{% response 'body', 'req_403dbc370a4843e9957e89288ea94359', 'b64::JC50b2tlbg==::46b', 'never', 60 %}",
+                "disabled": false
+            },
+            "metaSortKey": -1702064200890.1406,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_ba3d3bd017c74bae94bc888ba98f8553",
+            "parentId": "fld_b14a4772247e4c19810871fc67040662",
+            "modified": 1702066982307,
+            "created": 1702065049319,
+            "url": "{{ _.baseurl }}/posts",
+            "name": "List all Posts",
+            "description": "",
+            "method": "GET",
+            "body": {},
+            "parameters": [
+                {
+                    "id": "pair_1de2744d3aed432b9bc13e504b3518ab",
+                    "name": "page",
+                    "value": "1",
+                    "description": "",
+                    "disabled": true
+                },
+                {
+                    "id": "pair_75e7519552f84b488e83c7605df12d01",
+                    "name": "limit",
+                    "value": "3",
+                    "description": "",
+                    "disabled": true
+                },
+                {
+                    "id": "pair_13ab9ef2be0947cd9fd1eceb1931b5b3",
+                    "name": "userId",
+                    "value": "{% response 'body', 'req_403dbc370a4843e9957e89288ea94359', 'b64::JC5kYXRhLnN1Yg==::46b', 'never', 60 %}",
+                    "description": "",
+                    "disabled": true
+                },
+                {
+                    "id": "pair_bd6961a8467f4921bcc61be6c4b7583f",
+                    "name": "search",
+                    "value": "to create",
+                    "description": "",
+                    "disabled": true
+                }
+            ],
+            "headers": [],
+            "authentication": {},
+            "metaSortKey": -1702064150399.4062,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_8defd0dd7e644b23bc8fc30934b62e8c",
+            "parentId": "fld_b14a4772247e4c19810871fc67040662",
+            "modified": 1702066110842,
+            "created": 1702065333591,
+            "url": "{{ _.baseurl }}/posts/7a67b130-1fb2-4757-908b-24354f292e69",
+            "name": "List one single Post",
+            "description": "",
+            "method": "GET",
+            "body": {},
+            "parameters": [],
+            "headers": [],
+            "authentication": {},
+            "metaSortKey": -1702064049417.9375,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_39fda576a6dc4cf59d7dbc91c1adacff",
+            "parentId": "fld_b14a4772247e4c19810871fc67040662",
+            "modified": 1702065648450,
+            "created": 1702065633408,
+            "url": "{{ _.baseurl }}/posts/ade2308b-95ed-4d46-906c-dc54f75ae096",
+            "name": "Remove Post",
+            "description": "",
+            "method": "DELETE",
+            "body": {},
+            "parameters": [],
+            "headers": [],
+            "authentication": {
+                "type": "bearer",
+                "token": "{% response 'body', 'req_403dbc370a4843e9957e89288ea94359', 'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+            },
+            "metaSortKey": -1702063948411.4688,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_4d46553e6ae04b329640b4af899218ac",
+            "parentId": "fld_5b654b0f2adc4142bbedf1a003245c58",
+            "modified": 1702066568836,
+            "created": 1702064858276,
+            "url": "{{ _.baseurl }}/posts/7a67b130-1fb2-4757-908b-24354f292e69/comments",
+            "name": "Create Post Comment",
+            "description": "",
+            "method": "POST",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{\n  \"content\": \"Nice post 3\"\n}"
+            },
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "authentication": {
+                "type": "bearer",
+                "token": "{% response 'body', 'req_403dbc370a4843e9957e89288ea94359', 'b64::JC50b2tlbg==::46b', 'never', 60 %}",
+                "disabled": false
+            },
+            "metaSortKey": -1702065366020.0352,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "fld_5b654b0f2adc4142bbedf1a003245c58",
+            "parentId": "fld_b14a4772247e4c19810871fc67040662",
+            "modified": 1702065430459,
+            "created": 1702065367262,
+            "name": "Comments",
+            "description": "",
+            "environment": {},
+            "environmentPropertyOrder": null,
+            "metaSortKey": -1702063847405,
+            "_type": "request_group"
+        },
+        {
+            "_id": "req_c5c3cb65abc947e7bb907e58b711feb5",
+            "parentId": "fld_5b654b0f2adc4142bbedf1a003245c58",
+            "modified": 1702067002308,
+            "created": 1702065501443,
+            "url": "{{ _.baseurl }}/posts/7a67b130-1fb2-4757-908b-24354f292e69/comments",
+            "name": "List all Post Comments",
+            "description": "",
+            "method": "GET",
+            "body": {},
+            "parameters": [
+                {
+                    "id": "pair_f0f69ba7ae8840ca8802c6502ec2e803",
+                    "name": "page",
+                    "value": "1",
+                    "description": "",
+                    "disabled": true
+                },
+                {
+                    "id": "pair_023057306fbd4bb9b3d4443acda3815a",
+                    "name": "limit",
+                    "value": "5",
+                    "description": "",
+                    "disabled": true
+                },
+                {
+                    "id": "pair_d55e050c007443e988b935b07b9aba5a",
+                    "name": "userId",
+                    "value": "{% response 'body', 'req_403dbc370a4843e9957e89288ea94359', 'b64::JC5kYXRhLnN1Yg==::46b', 'never', 60 %}",
+                    "description": "",
+                    "disabled": true
+                },
+                {
+                    "id": "pair_69deae57ef7e42a68960535f7e586fb1",
+                    "name": "search",
+                    "value": "post",
+                    "description": "",
+                    "disabled": true
+                }
+            ],
+            "headers": [],
+            "authentication": {},
+            "metaSortKey": -1702064808700.455,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "env_65bb389f670d546930a7d976cf628fcf81ffd7af",
+            "parentId": "wrk_2713756d5aa7422091a2f707460089eb",
+            "modified": 1702062649612,
+            "created": 1702062615706,
+            "name": "Base Environment",
+            "data": {
+                "baseurl": "http://localhost:3000"
+            },
+            "dataPropertyOrder": {
+                "&": [
+                    "baseurl"
+                ]
+            },
+            "color": null,
+            "isPrivate": false,
+            "metaSortKey": 1702062615706,
+            "_type": "environment"
+        },
+        {
+            "_id": "jar_65bb389f670d546930a7d976cf628fcf81ffd7af",
+            "parentId": "wrk_2713756d5aa7422091a2f707460089eb",
+            "modified": 1702062615708,
+            "created": 1702062615708,
+            "name": "Default Jar",
+            "cookies": [],
+            "_type": "cookie_jar"
+        }
+    ]
+}
