@@ -31,7 +31,6 @@ export class AuthService {
     // This will be used for the initial login
     const userToAttempt = await this.userService.findUserByEmail(loginAttempt.email.toLocaleLowerCase());
 
-    console.log(userToAttempt)
     if (!userToAttempt) {
       throw new NotFoundException(INCORRECT_EMAIL_OR_PASSWORD);
     }
@@ -39,7 +38,6 @@ export class AuthService {
     let isMatch = false;
     try {
       isMatch = await this.checkPassword(loginAttempt.password, userToAttempt.password);
-      console.log(isMatch)
     } catch (error) {
       throw new UnauthorizedException(INCORRECT_EMAIL_OR_PASSWORD);
     }
@@ -52,8 +50,6 @@ export class AuthService {
   }
 
   private checkPassword(attempt: string, userPassword: string): Promise<boolean> {
-    console.log(attempt)
-    console.log(userPassword)
     return new Promise((resolve, reject) => {
       bcrypt.compare(attempt, userPassword, (err, isMatch) => {
         if (err) return reject(err);

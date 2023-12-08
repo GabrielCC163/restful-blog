@@ -47,7 +47,16 @@ export class PostService {
   async findAll(pagination: PaginationDTO): Promise<Pagination<PostEntity>> {
     const { page, limit, route, search, userId } = pagination;
     const options: IPaginationOptions = { page, limit, route };
-    const searchOptions = { where: {}, order: { createdAt: 'DESC' } } as any;
+    const searchOptions = {
+      where: {},
+      order: { createdAt: 'DESC' },
+      join: {
+        alias: 'post',
+        innerJoinAndSelect: {
+          user: 'post.user',
+        }
+      }
+    } as any;
 
     if (search?.trim()) searchOptions.where['title'] = ILike(`%${search.trim()}%`);
     if (userId) searchOptions.where['createdBy'] = userId;
@@ -58,7 +67,7 @@ export class PostService {
   }
 
   async findOne(id: string): Promise<PostEntity> {
-    const post = await this.postRepository.findOneBy({ id });
+    const post = await this.postRepository.findOne({ where: { id }, relations: { user: true } },);
     if (!post) throw new NotFoundException('Post not found');
     return post;
   }
@@ -66,7 +75,16 @@ export class PostService {
   async findAllPostComments(postId: string, pagination: PaginationDTO): Promise<Pagination<CommentEntity>> {
     const { page, limit, route, search, userId } = pagination;
     const options: IPaginationOptions = { page, limit, route };
-    const searchOptions = { where: {}, order: { createdAt: 'DESC' } } as any;
+    const searchOptions = {
+      where: {},
+      order: { createdAt: 'DESC' },
+      join: {
+        alias: 'comment',
+        innerJoinAndSelect: {
+          user: 'comment.user'
+        }
+      }
+    } as any;
 
     searchOptions.where['postId'] = postId;
     if (search?.trim()) searchOptions.where['content'] = ILike(`%${search.trim()}%`);
