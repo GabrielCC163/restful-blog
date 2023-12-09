@@ -19,6 +19,7 @@ import { PaginationDTO } from '@common/dto/pagination.dto';
 import { PostEntity } from './entities/post.entity';
 import {
   ApiBadRequestResponse,
+  ApiBearerAuth,
   ApiCreatedResponse,
   ApiInternalServerErrorResponse,
   ApiNoContentResponse,
@@ -45,6 +46,7 @@ export class PostController {
     this.baseUrl = this.configService.get('base_url');
   }
 
+  @ApiBearerAuth()
   @Post()
   @ApiOperation({ summary: 'Create post' })
   @ApiCreatedResponse({ type: PostResponseDto, description: 'Post created' })
@@ -54,6 +56,7 @@ export class PostController {
     return this.postService.create(req.user.userId, createPostDto);
   }
 
+  @ApiBearerAuth()
   @Post(':id/comments')
   @ApiOperation({ summary: 'Create comment in a post' })
   @ApiCreatedResponse({ type: CommentResponseDto, description: 'Comment created' })
@@ -67,6 +70,7 @@ export class PostController {
     return this.postService.createComment(req.user.userId, postId, createCommentDto);
   }
 
+  @ApiBearerAuth()
   @Put(':id')
   @ApiOperation({ summary: 'Update a post' })
   @ApiOkResponse({ type: PostResponseDto, description: 'Post successfully updated' })
@@ -115,6 +119,7 @@ export class PostController {
     return this.postService.findAllPostComments(postId, pagination);
   }
 
+  @ApiBearerAuth()
   @Delete(':id')
   @HttpCode(204)
   @ApiNoContentResponse({ description: 'Post removed' })

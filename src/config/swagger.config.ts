@@ -20,12 +20,21 @@ export const setupSwagger = (name: string, app: INestApplication) => {
   const config = new DocumentBuilder()
     .setTitle(name)
     .setVersion(packageJSON.version)
+    .addBearerAuth({
+      type: 'http',
+      scheme: 'bearer',
+      bearerFormat: 'JWT',
+      name: 'JWT',
+      description: 'Enter JWT token',
+      in: 'header',
+    })
     .addServer(baseUrl, `${appName} - ${appEnv}`)
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document, {
     swaggerOptions: {
+      persistAuthorization: true,
       tagsSorter: 'alpha',
       operationsSorter: 'alpha',
     },
