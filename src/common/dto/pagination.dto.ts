@@ -8,7 +8,7 @@ export class PaginationDTO {
   @Transform(({ value }) => (value ? Number(value) : 1))
   @IsNumber()
   @Min(1)
-  page = 1;
+  page?: number = 1;
 
   @ApiPropertyOptional({ default: 10 })
   @IsOptional()
@@ -16,15 +16,17 @@ export class PaginationDTO {
   @IsNumber()
   @Min(1)
   @Max(50)
-  limit = 10;
+  limit?: number = 10;
 
   @ApiHideProperty()
   route = 'http://localhost:3000/blog';
 
+  @ApiPropertyOptional()
   @IsOptional()
   @IsString()
   search?: string;
 
+  @ApiPropertyOptional()
   @IsOptional()
   @IsString()
   @IsUUID()
